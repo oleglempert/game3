@@ -59,9 +59,11 @@ public class GameServiceImpl implements GameService {
             if (FailedValue.NA != resValidation) {
                 resValidation.throwException();
             }
-            nextStep = repository.save(new Step(step));
-            if(state = nextStep.getResult() == 1)
+            nextStep = repository.save(new Step(step) );
+            if(state = nextStep.getResult() == 1) {
+                state = false;
                 return 1;
+            }
             nextStep = stepCalculator.calculateNextStep(nextStep.getResult());
             nextStep = repository.save(nextStep);
             state = nextStep.getResult() != 1;
